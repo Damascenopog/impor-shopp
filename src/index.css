@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --main-foreground: #000000;
+    --main-background: #ecf0f1;
+    --button-background: #f20606;
+    --button-foreground: #ffffff;
+    --label-background: #C8FF55;
+    --label-foreground: #333333;
+    --accent-color: #3fef09;
+  }
+
+  body {
+    background-color: #ecf0f1;
+    color: #333333;
+    font-family: "Public Sans", sans-serif;
+  }
+
+  /* Remove default spinner arrows from number inputs */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+  }
+}
+
+/* Custom transitions and utility classes */
+.transition-soft {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+  @apply bg-[#f20606] hover:bg-[#d40505] text-white font-bold py-2.5 px-5 rounded-[4px] transition-soft inline-flex items-center justify-center text-center cursor-pointer;
+}
+
+.btn-secondary {
+  @apply bg-black hover:bg-gray-800 text-white font-bold py-2.5 px-5 rounded-[4px] transition-soft inline-flex items-center justify-center text-center cursor-pointer;
+}
+
+.btn-outline {
+  @apply border border-gray-300 hover:border-black text-gray-800 font-medium py-2 px-4 rounded-[4px] transition-soft inline-flex items-center justify-center cursor-pointer;
+}
+
+.badge-offer {
+  @apply inline-flex items-center text-[11px] font-bold text-[#333333] bg-[#C8FF55] px-2 py-0.5 rounded-[2px] tracking-tight;
+}
+
+.badge-free-shipping {
+  @apply inline-flex items-center text-[11px] font-bold text-[#333333] bg-[#C8FF55] px-2 py-0.5 rounded-[2px] gap-1 tracking-tight;
+}
+
+/* Hide scrollbars when needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
