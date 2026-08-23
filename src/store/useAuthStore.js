@@ -187,7 +187,35 @@ export const useAuthStore = create(
 
       addOrder: (orderData) => {
         const state = get();
-        if (!state.user) return;
+        if (!state.user) {
+          const guestUser = {
+            name: orderData.customerName || 'Cliente',
+            email: orderData.customerEmail || 'cliente@imporshopp.com.br',
+            phone: orderData.customerPhone || '',
+            cpf: '',
+            birthDate: '',
+            gender: '',
+            addresses: [
+              {
+                id: 'addr-1',
+                label: 'Endereço Principal',
+                recipient: orderData.customerName || 'Cliente',
+                cep: orderData.shippingAddress?.cep || '20040-002',
+                street: orderData.shippingAddress?.street || 'Avenida Rio Branco',
+                number: orderData.shippingAddress?.number || '156',
+                complement: orderData.shippingAddress?.complement || '',
+                neighborhood: orderData.shippingAddress?.neighborhood || 'Centro',
+                city: orderData.shippingAddress?.city || 'Rio de Janeiro',
+                state: orderData.shippingAddress?.state || 'RJ',
+                isDefault: true
+              }
+            ],
+            orders: [orderData]
+          };
+          set({ user: guestUser, isAuthenticated: true });
+          return;
+        }
+
         const newOrders = [orderData, ...(state.user.orders || [])];
         set({
           user: {

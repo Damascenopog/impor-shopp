@@ -61,6 +61,18 @@ export const CheckoutPreviewPage = () => {
         status: 'Pago',
         paymentMethod: formData.paymentMethod.toUpperCase(),
         trackingCode: `BR${Math.floor(100000000 + Math.random() * 900000000)}AA`,
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        shippingAddress: {
+          cep: formData.cep,
+          street: formData.street,
+          number: formData.number,
+          complement: formData.complement,
+          neighborhood: formData.neighborhood,
+          city: formData.city,
+          state: formData.state
+        },
         items: items.map((i) => ({
           name: i.product.name,
           qty: i.quantity,
@@ -140,14 +152,17 @@ export const CheckoutPreviewPage = () => {
             </p>
 
             <div className="bg-gray-50 border border-gray-200 rounded-[4px] p-5 text-left text-xs space-y-2 mb-6">
-              <p><strong>Status:</strong> Aguardando confirmação do gateway</p>
+              <p><strong>Status:</strong> <span className="text-green-600 font-bold">Pagamento Aprovado</span></p>
               <p><strong>Destinatário:</strong> {formData.name || 'Cliente Imporshopp'}</p>
               <p><strong>Endereço de Entrega:</strong> {formData.street}, {formData.number} - {formData.city}/{formData.state}</p>
               <p><strong>Forma de Pagamento:</strong> {formData.paymentMethod.toUpperCase()}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/" className="btn-primary text-xs uppercase px-8 py-3.5">
+              <Link to="/account?tab=orders" className="btn-primary text-xs uppercase px-8 py-3.5 shadow-md">
+                Acompanhar em Meus Pedidos
+              </Link>
+              <Link to="/" className="btn-secondary text-xs uppercase px-8 py-3.5">
                 Continuar Comprando
               </Link>
             </div>
