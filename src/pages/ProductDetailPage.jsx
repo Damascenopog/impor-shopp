@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Heart, Share2, Check, ArrowLeft, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
+import { ShoppingBag, Heart, Share2, Check, ArrowLeft, ShieldCheck, Truck, RefreshCw, Plus, Sparkles } from 'lucide-react';
 import { products } from '../data/products';
 import { ProductGallery } from '../components/product/ProductGallery';
 import { ShippingCalculator } from '../components/product/ShippingCalculator';
 import { ProductGrid } from '../components/product/ProductGrid';
 import { TruckIcon, WhatsAppIcon } from '../components/common/Icons';
 import { formatPrice, calculateInstallments } from '../utils/formatters';
+import { getRecommendedProducts, getBundleRecommendation } from '../utils/recommendations';
 import { useCartStore } from '../store/useCartStore';
 
 export const ProductDetailPage = () => {
@@ -19,6 +20,7 @@ export const ProductDetailPage = () => {
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0] || null);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+  const [isAddingBundle, setIsAddingBundle] = useState(false);
 
   if (!product) {
     return (
@@ -32,15 +34,31 @@ export const ProductDetailPage = () => {
   }
 
   const installments = calculateInstallments(product.price, 12);
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  
+  // Intelligent recommendation engine results
+  const recommendedProducts = getRecommendedProducts(product, products, 8);
+  const bundleProduct = getBundleRecommendation(product, products);
+
+  // Bundle pricing calculation (10% discount on the combo)
+  const bundleTotalPrice = bundleProduct ? (product.price + bundleProduct.price) * 0.9 : 0;
+  const bundleOriginalPrice = bundleProduct ? product.price + bundleProduct.price : 0;
+  const bundleSavings = bundleOriginalPrice - bundleTotalPrice;
 
   const handleBuy = () => {
     setIsAdding(true);
     addItem(product, quantity, selectedColor);
     setTimeout(() => {
       setIsAdding(false);
+    }, 400);
+  };
+
+  const handleBuyBundle = () => {
+    if (!bundleProduct) return;
+    setIsAddingBundle(true);
+    addItem(product, 1, selectedColor);
+    addItem(bundleProduct, 1, bundleProduct.colors?.[0] || null);
+    setTimeout(() => {
+      setIsAddingBundle(false);
     }, 400);
   };
 
@@ -130,72 +148,68 @@ export const ProductDetailPage = () => {
               </p>
             </div>
 
-            {/* Colors / Variation selector */}
+            {/* Color Swatches */}
             {product.colors && product.colors.length > 0 && (
               <div className="mb-5 pt-3 border-t border-gray-100">
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-2">
-                  Cor: <span className="text-black font-semibold">{selectedColor?.name}</span>
+                <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">
+                  Cor: <span className="text-gray-500 font-normal">{selectedColor?.name || 'Selecione'}</span>
                 </label>
-                <div className="flex items-center gap-2.5">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color.name}
-                      onClick={() => setSelectedColor(color)}
-                      className={`relative w-8 h-8 rounded-full border-2 transition-all p-0.5 ${
-                        selectedColor?.name === color.name
-                          ? 'border-[#f20606] scale-110 shadow-xs'
-                          : 'border-transparent hover:scale-105'
-                      }`}
-                      title={color.name}
-                    >
-                      <span
-                        className="w-full h-full rounded-full block border border-gray-300"
+                <div className="flex items-center gap-2">
+                  {product.colors.map((color, idx) => {
+                    const isSelected = selectedColor?.name === color.name;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedColor(color)}
+                        className={`w-7 h-7 rounded-full transition-all flex items-center justify-center cursor-pointer ${
+                          isSelected
+                            ? 'ring-2 ring-black ring-offset-2 scale-110'
+                            : 'hover:scale-105 border border-gray-300'
+                        }`}
                         style={{ backgroundColor: color.hex }}
-                      />
-                    </button>
-                  ))}
+                        title={color.name}
+                      >
+                        {isSelected && (
+                          <Check className={`w-3.5 h-3.5 ${color.hex === '#ffffff' || color.hex === '#d1d5db' ? 'text-black' : 'text-white'}`} />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
 
-            {/* Quantity and Buy Button */}
-            <div className="flex items-center gap-3 mb-4">
-              {/* Quantity Changer */}
-              <div className="flex items-center border border-gray-300 rounded-[4px] bg-white h-12 shrink-0 overflow-hidden">
+            {/* Quantity Selector & Action Button */}
+            <div className="space-y-3 mb-6 pt-3 border-t border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center border border-gray-300 rounded-[4px] bg-white h-11">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    disabled={quantity <= 1}
+                    className="w-9 h-full flex items-center justify-center text-gray-600 hover:text-black font-bold text-sm disabled:opacity-30 cursor-pointer"
+                  >
+                    -
+                  </button>
+                  <span className="w-10 text-center font-bold text-xs text-gray-900">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity((q) => q + 1)}
+                    className="w-9 h-full flex items-center justify-center text-gray-600 hover:text-black font-bold text-sm cursor-pointer"
+                  >
+                    +
+                  </button>
+                </div>
+
                 <button
-                  type="button"
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-10 h-full flex items-center justify-center text-gray-700 hover:bg-gray-100 font-bold text-base transition-colors select-none"
-                  aria-label="Diminuir quantidade"
+                  onClick={handleBuy}
+                  disabled={isAdding}
+                  className="btn-primary flex-1 h-11 text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md cursor-pointer"
                 >
-                  -
-                </button>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-12 text-center text-sm font-bold text-gray-900 border-x border-gray-300 h-full focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <button
-                  type="button"
-                  onClick={() => setQuantity((q) => q + 1)}
-                  className="w-10 h-full flex items-center justify-center text-gray-700 hover:bg-gray-100 font-bold text-base transition-colors select-none"
-                  aria-label="Aumentar quantidade"
-                >
-                  +
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>{isAdding ? 'Adicionando...' : 'Comprar Agora'}</span>
                 </button>
               </div>
-
-              {/* Main Buy Button */}
-              <button
-                onClick={handleBuy}
-                disabled={isAdding}
-                className="flex-1 h-12 bg-[#f20606] hover:bg-[#d40505] text-white font-extrabold uppercase text-sm tracking-wider rounded-[4px] shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                <span>{isAdding ? 'Adicionando...' : 'Comprar'}</span>
-              </button>
             </div>
 
             {/* Shipping Calculator */}
@@ -238,6 +252,84 @@ export const ProductDetailPage = () => {
 
         </div>
 
+        {/* Compre Junto / Bundle Combo Recommendation */}
+        {bundleProduct && (
+          <div className="mt-10 bg-white rounded-[4px] border border-gray-200 p-6 sm:p-8 shadow-xs">
+            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
+              <Sparkles className="w-5 h-5 text-[#f20606]" />
+              <h2 className="text-base sm:text-lg font-extrabold uppercase tracking-wide text-gray-900">
+                Compre Junto e Economize 10%
+              </h2>
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+              
+              {/* Items in the combo */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 flex-1">
+                
+                {/* Product 1 */}
+                <div className="flex items-center gap-3 p-3 border border-gray-100 rounded bg-gray-50/50 flex-1 w-full">
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="w-16 h-16 object-contain bg-white rounded p-1 border border-gray-100 shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10px] font-bold uppercase text-gray-400 block">Este produto</span>
+                    <p className="text-xs font-bold text-gray-800 line-clamp-2">{product.name}</p>
+                    <span className="text-xs font-extrabold text-[#f20606] mt-0.5 block">{formatPrice(product.price)}</span>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold shrink-0">
+                  <Plus className="w-4 h-4" />
+                </div>
+
+                {/* Product 2 */}
+                <div className="flex items-center gap-3 p-3 border border-gray-100 rounded bg-gray-50/50 flex-1 w-full">
+                  <img
+                    src={bundleProduct.images[0]}
+                    alt={bundleProduct.name}
+                    className="w-16 h-16 object-contain bg-white rounded p-1 border border-gray-100 shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10px] font-bold uppercase text-green-600 block">Recomendado</span>
+                    <Link to={`/produtos/${bundleProduct.slug}`} className="text-xs font-bold text-gray-800 line-clamp-2 hover:text-[#f20606]">
+                      {bundleProduct.name}
+                    </Link>
+                    <span className="text-xs font-extrabold text-[#f20606] mt-0.5 block">{formatPrice(bundleProduct.price)}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Combo Price and Button */}
+              <div className="flex flex-col sm:flex-row lg:flex-col items-center lg:items-end justify-between gap-3 w-full lg:w-auto p-4 bg-gray-50 rounded border border-gray-100 shrink-0">
+                <div>
+                  <span className="text-xs text-gray-500 line-through block">
+                    De {formatPrice(bundleOriginalPrice)}
+                  </span>
+                  <div className="text-lg font-black text-gray-900">
+                    Por <span className="text-[#f20606]">{formatPrice(bundleTotalPrice)}</span>
+                  </div>
+                  <span className="text-[11px] font-bold text-green-600">
+                    Economia de {formatPrice(bundleSavings)}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleBuyBundle}
+                  disabled={isAddingBundle}
+                  className="btn-primary text-xs uppercase px-6 py-3 tracking-wider shadow cursor-pointer whitespace-nowrap"
+                >
+                  {isAddingBundle ? 'Adicionando Combo...' : 'Comprar os 2 Juntos'}
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
+
         {/* Product Description and Specifications Tab */}
         <div className="mt-10 bg-white rounded-[4px] border border-gray-100 p-6 sm:p-8 shadow-xs">
           <h2 className="text-lg font-bold uppercase tracking-wide text-gray-900 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
@@ -250,13 +342,13 @@ export const ProductDetailPage = () => {
           />
         </div>
 
-        {/* Related Products Section */}
-        {relatedProducts.length > 0 && (
+        {/* Related & Recommended Products Section */}
+        {recommendedProducts.length > 0 && (
           <div className="mt-12">
             <ProductGrid
-              title="Produtos Relacionados"
-              subtitle="Quem viu este item também comprou"
-              products={relatedProducts}
+              title="Produtos Recomendados"
+              subtitle={`Itens selecionados da mesma categoria (${product.categoryName}) e com alta afinidade`}
+              products={recommendedProducts}
               columns={4}
             />
           </div>

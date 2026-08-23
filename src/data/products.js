@@ -484,5 +484,130 @@ export const products = [
       <p><strong>AirPods Pro 2ª Geração Original Apple</strong></p>
       <p>Cancelamento Ativo de Ruído de última geração, Áudio Espacial Personalizado com rastreamento dinâmico da cabeça e estojo de recarga MagSafe com alto-falante.</p>
     `
+  },
+  {
+    id: "251674738",
+    slug: "caixa-de-som-torre-bluetooth-rgb-com-microfone-80w-altomex-tr-800",
+    name: "Caixa de Som Torre Bluetooth LED RGB com Microfone e Controle 80W Altomex TR-800",
+    category: "caixas-de-som",
+    categoryName: "Caixas de som",
+    brand: "Altomex",
+    price: 389.90,
+    comparePrice: 459.00,
+    discountPercentage: 15,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 28,
+    weight: "3.2 kg",
+    stock: 9,
+    colors: [
+      { name: "Preto", hex: "#000000", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Caixa de Som Torre Bluetooth 80W RMS Altomex</strong></p>
+      <p>Potência incomparável para suas festas e confraternizações. Acompanha microfone para karaokê, efeitos de luzes dinâmicas LED RGB que pulsam no ritmo da música e controle remoto completo.</p>
+    `
+  },
+  {
+    id: "251674739",
+    slug: "caixa-de-som-boombox-portatil-bluetooth-ipx6-altomex-boom",
+    name: "Caixa de Som Portátil Boombox Bluetooth à Prova d'Água IPX6 Altomex Boom",
+    category: "caixas-de-som",
+    categoryName: "Caixas de som",
+    brand: "Altomex",
+    price: 189.90,
+    comparePrice: 229.00,
+    discountPercentage: 17,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: true,
+    isSale: true,
+    rating: 4.9,
+    reviewsCount: 34,
+    weight: "1.1 kg",
+    stock: 16,
+    colors: [
+      { name: "Preto", hex: "#000000", inStock: true },
+      { name: "Camuflado", hex: "#4b5320", inStock: true },
+      { name: "Azul", hex: "#1e3a8a", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Caixa de Som Boombox Portátil Altomex com Graves Reforçados</strong></p>
+      <p>Resistente à água (certificação IPX6), perfeita para praia, piscina ou churrasco. Graves potentes com radiadores passivos duplos e bateria de até 8 horas de duração contínua.</p>
+    `
+  },
+  {
+    id: "251674740",
+    slug: "headphone-fone-de-ouvido-bluetooth-sem-fio-p9-pro-max",
+    name: "Headphone Fone de Ouvido Bluetooth Sem Fio P9 Pro Max com Cancelamento de Ruído",
+    category: "caixas-de-som",
+    categoryName: "Caixas de som",
+    brand: "Kapbom",
+    price: 79.90,
+    comparePrice: 119.90,
+    discountPercentage: 33,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: true,
+    rating: 4.8,
+    reviewsCount: 41,
+    weight: "0.28 kg",
+    stock: 35,
+    colors: [
+      { name: "Prata", hex: "#d1d5db", inStock: true },
+      { name: "Preto", hex: "#000000", inStock: true },
+      { name: "Verde", hex: "#15803d", inStock: true },
+      { name: "Azul", hex: "#1e3a8a", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Headphone Bluetooth P9 Pro Max com Som Imersivo Hi-Fi</strong></p>
+      <p>Design premium e almofadas respiráveis ultra confortáveis. Áudio espacial com graves profundos e microfone embutido para chamadas cristalinas.</p>
+    `
+  },
+  {
+    id: "251674741",
+    slug: "microfone-dinamico-profissional-sem-fio-duplo-vhf-altomex",
+    name: "Microfone Dinâmico Profissional Sem Fio Duplo VHF Altomex para Karaokê",
+    category: "caixas-de-som",
+    categoryName: "Caixas de som",
+    brand: "Altomex",
+    price: 139.90,
+    comparePrice: 179.90,
+    discountPercentage: 22,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 19,
+    weight: "0.65 kg",
+    stock: 12,
+    colors: [
+      { name: "Preto", hex: "#000000", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1583244532610-2a234e7c3eca?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Kit 2 Microfones Sem Fio Profissionais Altomex</strong></p>
+      <p>Compatível com todas as caixas de som, mesas de áudio e sistemas de som. Alcance de até 30 metros sem interferências.</p>
+    `
   }
 ];
