@@ -4,9 +4,10 @@ import { InfoBar } from '../components/home/InfoBar';
 import { ProductGrid } from '../components/product/ProductGrid';
 import { OffersCarousel } from '../components/home/OffersCarousel';
 import { NewsletterSection } from '../components/home/NewsletterSection';
-import { products } from '../data/products';
+import { useAdminStore } from '../store/useAdminStore';
 
 export const HomePage = () => {
+  const products = useAdminStore((state) => state.products);
   const lancamentos = products.filter((p) => p.isNew || p.isFeatured).slice(0, 8);
   const ofertas = products.filter((p) => p.isSale || p.discountPercentage > 0);
   const variedades = products.slice(0, 12);

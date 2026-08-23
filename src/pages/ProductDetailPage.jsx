@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Heart, Share2, Check, ArrowLeft, ShieldCheck, Truck, RefreshCw, Plus, Sparkles } from 'lucide-react';
-import { products } from '../data/products';
 import { ProductGallery } from '../components/product/ProductGallery';
 import { ShippingCalculator } from '../components/product/ShippingCalculator';
 import { ProductGrid } from '../components/product/ProductGrid';
@@ -9,11 +8,13 @@ import { TruckIcon, WhatsAppIcon } from '../components/common/Icons';
 import { formatPrice, calculateInstallments } from '../utils/formatters';
 import { getRecommendedProducts, getBundleRecommendation } from '../utils/recommendations';
 import { useCartStore } from '../store/useCartStore';
+import { useAdminStore } from '../store/useAdminStore';
 
 export const ProductDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const addItem = useCartStore((state) => state.addItem);
+  const products = useAdminStore((state) => state.products);
 
   const product = products.find((p) => p.slug === slug) || products[0];
 

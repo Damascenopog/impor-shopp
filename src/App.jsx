@@ -8,7 +8,7 @@ import { AddedToCartToast } from './components/cart/AddedToCartToast';
 import { FloatingWhatsApp } from './components/layout/FloatingWhatsApp';
 import { CookieBanner } from './components/layout/CookieBanner';
 
-// Pages
+// Store Pages
 import { HomePage } from './pages/HomePage';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -23,6 +23,10 @@ import { ReturnsPage } from './pages/ReturnsPage';
 import { AboutPage } from './pages/AboutPage';
 import { CheckoutPreviewPage } from './pages/CheckoutPreviewPage';
 import { AccountPage } from './pages/AccountPage';
+
+// Admin Pages
+import { AdminLoginPage } from './pages/admin/AdminLoginPage';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -65,6 +69,22 @@ const ScrollToTop = () => {
 
 export const AppContent = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  // If in Admin portal, render clean standalone admin dashboard without customer header/footer
+  if (isAdminRoute) {
+    return (
+      <div className="min-h-screen bg-[#0d1117]">
+        <ScrollToTop />
+        <Routes>
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin/*" element={<AdminDashboardPage />} />
+        </Routes>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-[#ecf0f1] text-[#333333]">

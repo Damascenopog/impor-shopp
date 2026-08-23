@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Filter, SlidersHorizontal, ChevronDown, X, Check } from 'lucide-react';
-import { products } from '../data/products';
 import { categories, colorFilters, sortOptions } from '../data/categories';
 import { ProductCard } from '../components/product/ProductCard';
 import { formatPrice } from '../utils/formatters';
+import { useAdminStore } from '../store/useAdminStore';
 
 export const ProductsPage = ({ defaultCategory = 'todos', pageTitle = 'Produtos' }) => {
+  const products = useAdminStore((state) => state.products);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
   const [selectedColors, setSelectedColors] = useState([]);

@@ -154,8 +154,16 @@ export const Footer = () => {
       {/* Footer Legal & Nuvemshop Attribution */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-4 border-t border-neutral-900">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-xs text-gray-500">
-          <div>
+          <div className="flex items-center gap-4">
             <p>Copyright IMPORSHOPP - 2026. Todos os direitos reservados.</p>
+            <span className="text-gray-700">•</span>
+            <Link
+              to="/admin/login"
+              className="text-gray-600 hover:text-gray-300 transition-colors text-[11px]"
+              title="Acesso Administrativo"
+            >
+              Área Admin
+            </Link>
           </div>
 
           {/* Nuvemshop Logo Attribution */}

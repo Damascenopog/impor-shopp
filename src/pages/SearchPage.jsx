@@ -1,23 +1,24 @@
 import React, { useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
-import { products } from '../data/products';
 import { ProductCard } from '../components/product/ProductCard';
+import { useAdminStore } from '../store/useAdminStore';
 
 export const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
+  const products = useAdminStore((state) => state.products);
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
     const cleanQ = query.toLowerCase();
     return products.filter((p) =>
       p.name.toLowerCase().includes(cleanQ) ||
-      p.brand.toLowerCase().includes(cleanQ) ||
-      p.categoryName.toLowerCase().includes(cleanQ) ||
-      p.description.toLowerCase().includes(cleanQ)
+      p.brand?.toLowerCase().includes(cleanQ) ||
+      p.categoryName?.toLowerCase().includes(cleanQ) ||
+      p.description?.toLowerCase().includes(cleanQ)
     );
-  }, [query]);
+  }, [query, products]);
 
   return (
     <div className="min-h-screen pb-16">

@@ -4,6 +4,7 @@ import { ShieldCheck, Lock, CheckCircle2, CreditCard, QrCode, FileText, ArrowLef
 import confetti from 'canvas-confetti';
 import { useCartStore } from '../store/useCartStore';
 import { useAuthStore } from '../store/useAuthStore';
+import { useAdminStore } from '../store/useAdminStore';
 import { formatPrice } from '../utils/formatters';
 
 export const CheckoutPreviewPage = () => {
@@ -53,35 +54,40 @@ export const CheckoutPreviewPage = () => {
     setOrderNumber(generatedOrder);
 
     // Save order into user account history
+    const orderData = {
+      id: generatedOrder,
+      date: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      total: total,
+      status: 'Pendente',
+      paymentMethod: formData.paymentMethod.toUpperCase(),
+      trackingCode: '',
+      customerName: formData.name,
+      customerEmail: formData.email,
+      customerPhone: formData.phone,
+      shippingAddress: {
+        cep: formData.cep,
+        street: formData.street,
+        number: formData.number,
+        complement: formData.complement,
+        neighborhood: formData.neighborhood,
+        city: formData.city,
+        state: formData.state
+      },
+      items: items.map((i) => ({
+        name: i.product.name,
+        qty: i.quantity,
+        price: i.product.price,
+        color: i.colorName,
+        image: i.product.images[0]
+      }))
+    };
+
     if (addOrder) {
-      addOrder({
-        id: generatedOrder,
-        date: new Date().toLocaleDateString('pt-BR'),
-        total: total,
-        status: 'Pago',
-        paymentMethod: formData.paymentMethod.toUpperCase(),
-        trackingCode: `BR${Math.floor(100000000 + Math.random() * 900000000)}AA`,
-        customerName: formData.name,
-        customerEmail: formData.email,
-        customerPhone: formData.phone,
-        shippingAddress: {
-          cep: formData.cep,
-          street: formData.street,
-          number: formData.number,
-          complement: formData.complement,
-          neighborhood: formData.neighborhood,
-          city: formData.city,
-          state: formData.state
-        },
-        items: items.map((i) => ({
-          name: i.product.name,
-          qty: i.quantity,
-          price: i.product.price,
-          color: i.colorName,
-          image: i.product.images[0]
-        }))
-      });
+      addOrder(orderData);
     }
+
+    // Sync directly to Admin Dashboard
+    useAdminStore.getState().addNewOrder(orderData);
 
     setStep(4);
     clearCart();
