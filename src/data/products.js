@@ -486,6 +486,183 @@ export const products = [
     `
   },
   {
+    id: "9001003",
+    slug: "cabo-original-apple-usb-c-para-lightning-1m",
+    name: "Cabo Original Apple USB-C para Lightning 1 Metro",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 119.90,
+    comparePrice: 149.00,
+    discountPercentage: 20,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: true,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 44,
+    weight: "0.06 kg",
+    stock: 30,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Cabo Original Apple USB-C para Lightning (1m)</strong></p>
+      <p>Conecte seu iPhone, iPad ou iPod com conector Lightning a um Mac com porta USB-C ou Thunderbolt 3 para recarregar e sincronizar com máxima velocidade.</p>
+    `
+  },
+  {
+    id: "9001004",
+    slug: "carregador-magsafe-charger-original-apple-15w-sem-fio",
+    name: "Carregador MagSafe Charger 15W Sem Fio Magnético Original Apple",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 299.90,
+    comparePrice: 389.00,
+    discountPercentage: 23,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 39,
+    weight: "0.12 kg",
+    stock: 15,
+    colors: [
+      { name: "Prata/Branco", hex: "#d1d5db", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Carregador MagSafe Original Apple 15W</strong></p>
+      <p>O carregador MagSafe torna a recarga sem fio rápida e prática. O alinhamento magnético perfeito se fixa perfeitamente ao seu iPhone 12, 13, 14 ou 15.</p>
+    `
+  },
+  {
+    id: "9001005",
+    slug: "cabo-original-apple-usb-c-para-usb-c-trancado-60w-1m",
+    name: "Cabo Original Apple USB-C para USB-C Trançado 60W 1 Metro",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 129.90,
+    comparePrice: 169.00,
+    discountPercentage: 23,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: false,
+    isSale: true,
+    rating: 4.9,
+    reviewsCount: 27,
+    weight: "0.05 kg",
+    stock: 25,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Cabo Trançado Original Apple USB-C para USB-C (60W)</strong></p>
+      <p>Com design trançado de alta resistência, suporta carregamento rápido de até 60 watts e transferência de dados em alta velocidade para iPhone 15, iPad e Mac.</p>
+    `
+  },
+  {
+    id: "9001006",
+    slug: "fone-de-ouvido-earpods-original-apple-conector-lightning",
+    name: "Fone de Ouvido EarPods Original Apple com Conector Lightning",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 159.90,
+    comparePrice: 199.00,
+    discountPercentage: 20,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 4.9,
+    reviewsCount: 63,
+    weight: "0.08 kg",
+    stock: 20,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>EarPods Original Apple com Conector Lightning</strong></p>
+      <p>Desenvolvidos pela Apple para se ajustar geometricamente ao ouvido, proporcionando graves mais profundos e som de alta fidelidade sem ruídos.</p>
+    `
+  },
+  {
+    id: "9001007",
+    slug: "adaptador-lightning-para-conector-de-fone-de-ouvido-3-5mm-original-apple",
+    name: "Adaptador Lightning para P2 Fone de Ouvido 3.5mm Original Apple",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 79.90,
+    comparePrice: 99.00,
+    discountPercentage: 19,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: false,
+    rating: 4.8,
+    reviewsCount: 31,
+    weight: "0.02 kg",
+    stock: 35,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Adaptador Lightning para P2 Original Apple</strong></p>
+      <p>Permite conectar dispositivos com plugue de áudio de 3,5 mm (como fones e cabos auxiliares de som automotivo) aos seus aparelhos com conector Lightning.</p>
+    `
+  },
+  {
+    id: "9001008",
+    slug: "carregador-duplo-usb-c-35w-original-apple-compacto",
+    name: "Carregador Duplo USB-C 35W Original Apple Compacto",
+    category: "original-apple",
+    categoryName: "Original Apple",
+    brand: "Apple",
+    price: 349.90,
+    comparePrice: 429.00,
+    discountPercentage: 18,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 19,
+    weight: "0.18 kg",
+    stock: 12,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Carregador Duplo USB-C 35W Original Apple</strong></p>
+      <p>Permite recarregar dois aparelhos ao mesmo tempo (como seu iPhone e Apple Watch ou iPad) em qualquer tomada de casa ou trabalho com velocidade turbo.</p>
+    `
+  },
+  {
     id: "251674738",
     slug: "caixa-de-som-torre-bluetooth-rgb-com-microfone-80w-altomex-tr-800",
     name: "Caixa de Som Torre Bluetooth LED RGB com Microfone e Controle 80W Altomex TR-800",

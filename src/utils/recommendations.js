@@ -1,49 +1,48 @@
 import { products } from '../data/products';
 
 /**
- * Strict category to accessory/complement mapping
- * Ensures recommendations never mix unrelated niches (e.g. speakers in smartwatches)
+ * Strict rules for complementary products per category
  */
-const STRICT_NICHE_MAP = {
+const CATEGORY_RULES = {
+  'original-apple': {
+    compatibleCategories: ['original-apple'],
+    mustIncludeAnyWord: ['apple', 'iphone', 'magsafe', 'airpods', 'lightning', 'earpods', 'ipad', 'mac'],
+    strictlyExcludeWords: ['teclado', 'mouse', 'gamer', 'ps2', 'caixa de som', 'karaokê', 'repetidor', 'roteador', 'tv box']
+  },
   'smartwatches': {
-    primaryCategory: 'smartwatches',
-    allowedKeywords: ['smartwatch', 'relógio', 'relogio', 'smartband', 'pulseira', 'amoled', 'indução', 'w69', 'w99', 'iwo', 'zl02d', 'm8'],
-    excludeKeywords: ['caixa de som', 'karaokê', 'microfone', 'teclado', 'gamer', 'repetidor', 'roteador', 'conversor', 'tv box', 'case externa hd']
+    compatibleCategories: ['smartwatches'],
+    mustIncludeAnyWord: ['smartwatch', 'relógio', 'relogio', 'smartband', 'pulseira', 'amoled', 'indução', 'w69', 'w99', 'iwo', 'zl02d', 'm8'],
+    strictlyExcludeWords: ['teclado', 'mouse', 'gamer', 'ps2', 'caixa de som', 'karaokê', 'microfone', 'repetidor', 'roteador', 'conversor', 'tv box']
   },
   'caixas-de-som': {
-    primaryCategory: 'caixas-de-som',
-    allowedKeywords: ['caixa de som', 'som', 'áudio', 'audio', 'karaokê', 'karaoke', 'microfone', 'bluetooth', 'alto-falante', 'speaker', 'headphone', 'fone', 'boombox', 'altomex'],
-    excludeKeywords: ['smartwatch', 'relógio', 'pulseira', 'teclado gamer', 'roteador', 'repetidor', 'hd externo']
-  },
-  'original-apple': {
-    primaryCategory: 'original-apple',
-    allowedKeywords: ['apple', 'iphone', 'airpods', 'magsafe', 'lightning', '20w', 'turbo', 'cabo'],
-    excludeKeywords: ['caixa de som', 'karaokê', 'repetidor', 'roteador', 'tv box', 'ps2']
+    compatibleCategories: ['caixas-de-som'],
+    mustIncludeAnyWord: ['caixa de som', 'som', 'áudio', 'audio', 'karaokê', 'karaoke', 'microfone', 'bluetooth', 'alto-falante', 'speaker', 'headphone', 'fone', 'boombox'],
+    strictlyExcludeWords: ['smartwatch', 'relógio', 'pulseira', 'teclado', 'mouse', 'gamer', 'roteador', 'repetidor', 'hd externo']
   },
   'gamer': {
-    primaryCategory: 'gamer',
-    allowedKeywords: ['gamer', 'teclado', 'mouse', 'rgb', 'controle', 'dualshock', 'ps2', 'headset', 'pad'],
-    excludeKeywords: ['smartwatch', 'relógio', 'pulseira', 'caixa de som karaokê', 'conversor digital']
+    compatibleCategories: ['gamer'],
+    mustIncludeAnyWord: ['gamer', 'teclado', 'mouse', 'rgb', 'controle', 'dualshock', 'ps2', 'headset', 'pad'],
+    strictlyExcludeWords: ['smartwatch', 'relógio', 'pulseira', 'caixa de som karaokê', 'conversor digital', 'magsafe']
   },
   'redes-e-conectividade': {
-    primaryCategory: 'redes-e-conectividade',
-    allowedKeywords: ['wi-fi', 'wifi', 'repetidor', 'roteador', 'antenas', 'internet', 'rede', 'wireless'],
-    excludeKeywords: ['smartwatch', 'relógio', 'caixa de som', 'karaokê', 'controle ps2']
+    compatibleCategories: ['redes-e-conectividade'],
+    mustIncludeAnyWord: ['wi-fi', 'wifi', 'repetidor', 'roteador', 'antenas', 'internet', 'rede', 'wireless'],
+    strictlyExcludeWords: ['smartwatch', 'relógio', 'caixa de som', 'karaokê', 'controle ps2', 'airpods']
   },
   'cabos-e-carregadores': {
-    primaryCategory: 'cabos-e-carregadores',
-    allowedKeywords: ['cabo', 'carregador', 'tipo-c', 'lightning', 'turbo', 'fonte', 'usb'],
-    excludeKeywords: ['caixa de som torre', 'microfone karaokê', 'repetidor wifi']
+    compatibleCategories: ['cabos-e-carregadores', 'original-apple', 'acessorios'],
+    mustIncludeAnyWord: ['cabo', 'carregador', 'tipo-c', 'lightning', 'turbo', 'fonte', 'usb'],
+    strictlyExcludeWords: ['caixa de som torre', 'microfone karaokê', 'repetidor wifi', 'teclado gamer']
   },
   'eletronicos': {
-    primaryCategory: 'eletronicos',
-    allowedKeywords: ['tv box', 'conversor', 'smart tv', '4k', 'android', 'hdmi', 'adaptador'],
-    excludeKeywords: ['smartwatch pulseira']
+    compatibleCategories: ['eletronicos', 'redes-e-conectividade'],
+    mustIncludeAnyWord: ['tv box', 'conversor', 'smart tv', '4k', 'android', 'hdmi'],
+    strictlyExcludeWords: ['smartwatch pulseira', 'controle ps2']
   },
   'acessorios': {
-    primaryCategory: 'acessorios',
-    allowedKeywords: ['adaptador', 'case', 'hd', 'suporte', 'cabo'],
-    excludeKeywords: ['caixa de som torre']
+    compatibleCategories: ['acessorios', 'cabos-e-carregadores'],
+    mustIncludeAnyWord: ['adaptador', 'case', 'hd', 'suporte', 'cabo'],
+    strictlyExcludeWords: ['caixa de som torre', 'smartwatch ultra']
   }
 };
 
@@ -58,19 +57,19 @@ export const getRecommendedProducts = (currentProduct, allProducts = products, l
   if (!currentProduct) return allProducts.slice(0, limit);
 
   const category = currentProduct.category || 'todos';
-  const niche = STRICT_NICHE_MAP[category];
+  const rules = CATEGORY_RULES[category];
 
-  // 1. Gather all other products in the exact same category
+  // 1. First priority: Gather all other products in the exact same category
   const sameCategoryProducts = allProducts.filter(
     (p) => p.category === category && p.id !== currentProduct.id && p.slug !== currentProduct.slug
   );
 
-  // If we have enough products in the exact same category, return them directly
+  // If there are already enough products in the exact same category, return them directly
   if (sameCategoryProducts.length >= limit) {
     return sameCategoryProducts.slice(0, limit);
   }
 
-  // 2. If we need more items to fill up to `limit`, only pull strictly relevant items
+  // 2. If same category has fewer than `limit`, select ONLY strictly compatible items
   const otherCandidates = allProducts.filter(
     (p) => p.category !== category && p.id !== currentProduct.id && p.slug !== currentProduct.slug
   );
@@ -80,19 +79,28 @@ export const getRecommendedProducts = (currentProduct, allProducts = products, l
       let score = 0;
       const candidateText = `${candidate.name} ${candidate.categoryName || ''} ${candidate.description || ''} ${candidate.brand || ''}`.toLowerCase();
 
-      if (niche) {
-        // Exclude if it contains any blacklisted keyword for this niche
-        const hasExcluded = niche.excludeKeywords.some((w) => candidateText.includes(w));
-        if (hasExcluded) return { product: candidate, score: -100 };
+      if (rules) {
+        // Exclude if it contains any forbidden keywords for this niche
+        const isForbidden = rules.strictlyExcludeWords.some((w) => candidateText.includes(w));
+        if (isForbidden) return { product: candidate, score: -100 };
 
-        // Match allowed keywords
-        const matchCount = niche.allowedKeywords.filter((w) => candidateText.includes(w)).length;
-        score += matchCount * 15;
+        // Must match at least one specific niche keyword
+        const hasKeywordMatch = rules.mustIncludeAnyWord.some((w) => candidateText.includes(w));
+        if (!hasKeywordMatch) return { product: candidate, score: -100 };
+
+        // Must belong to compatible category
+        if (rules.compatibleCategories.includes(candidate.category)) {
+          score += 30;
+        }
+
+        // Specific keyword count
+        const matchCount = rules.mustIncludeAnyWord.filter((w) => candidateText.includes(w)).length;
+        score += matchCount * 10;
       }
 
       // Brand match boost
       if (candidate.brand && currentProduct.brand && candidate.brand.toLowerCase() === currentProduct.brand.toLowerCase()) {
-        score += 5;
+        score += 15;
       }
 
       return { product: candidate, score };
@@ -101,49 +109,43 @@ export const getRecommendedProducts = (currentProduct, allProducts = products, l
     .sort((a, b) => b.score - a.score)
     .map((item) => item.product);
 
-  // Combine same category first + strictly scored matches
   const combined = [...sameCategoryProducts, ...scoredOtherProducts];
-
   return combined.slice(0, limit);
 };
 
 /**
- * Returns a strictly relevant bundle/cross-sell item (e.g. Smartwatch + Pulseira / Caixa de Som + Microfone)
+ * Returns a strictly relevant bundle/cross-sell item
  */
 export const getBundleRecommendation = (currentProduct, allProducts = products) => {
   if (!currentProduct) return null;
 
   const category = currentProduct.category;
 
-  // Dedicated smart pairings
-  if (category === 'smartwatches') {
-    // Pair smartwatch with pulseiras or magnetic charger
+  if (category === 'original-apple') {
+    // For Apple, pair with Apple Cable or MagSafe or EarPods
     const accessory = allProducts.find(
-      (p) => p.id !== currentProduct.id && (p.slug.includes('pulseira') || p.slug.includes('carregador-magnetico') || p.slug.includes('smartband'))
+      (p) => p.id !== currentProduct.id && p.category === 'original-apple' && (p.slug.includes('cabo') || p.slug.includes('magsafe') || p.slug.includes('carregador'))
+    );
+    if (accessory) return accessory;
+  }
+
+  if (category === 'smartwatches') {
+    const accessory = allProducts.find(
+      (p) => p.id !== currentProduct.id && (p.slug.includes('pulseira') || p.slug.includes('carregador-magnetico'))
     );
     if (accessory) return accessory;
   }
 
   if (category === 'caixas-de-som') {
-    // Pair sound box with microphone or headphone or another speaker
     const accessory = allProducts.find(
       (p) => p.id !== currentProduct.id && (p.slug.includes('microfone') || p.slug.includes('headphone') || p.category === 'caixas-de-som')
     );
     if (accessory) return accessory;
   }
 
-  if (category === 'original-apple') {
-    // Pair with AirPods or 20W charger or Type-C cable
-    const accessory = allProducts.find(
-      (p) => p.id !== currentProduct.id && (p.slug.includes('cabo') || p.category === 'original-apple')
-    );
-    if (accessory) return accessory;
-  }
-
   if (category === 'gamer') {
-    // Pair with keyboard/mouse or controller
     const accessory = allProducts.find(
-      (p) => p.id !== currentProduct.id && (p.category === 'gamer' || p.slug.includes('cabo'))
+      (p) => p.id !== currentProduct.id && p.category === 'gamer'
     );
     if (accessory) return accessory;
   }
