@@ -609,5 +609,193 @@ export const products = [
       <p><strong>Kit 2 Microfones Sem Fio Profissionais Altomex</strong></p>
       <p>Compatível com todas as caixas de som, mesas de áudio e sistemas de som. Alcance de até 30 metros sem interferências.</p>
     `
+  },
+  {
+    id: "218622613",
+    slug: "smartwatch-ultra-2-49mm-trava-pulseiras-parafusos-reais-w99-plus",
+    name: "Smartwatch Ultra 2 49mm com Trava de Pulseiras e Parafusos Reais W99+ Microwear",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "Microwear",
+    price: 289.90,
+    comparePrice: 349.90,
+    discountPercentage: 17,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 47,
+    weight: "0.38 kg",
+    stock: 22,
+    colors: [
+      { name: "Laranja Titânio", hex: "#ea580c", inStock: true },
+      { name: "Preto Fosco", hex: "#000000", inStock: true },
+      { name: "Prata Starlight", hex: "#d1d5db", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Smartwatch Ultra 2 49mm W99+ com Display HD Infinito</strong></p>
+      <p>A versão mais avançada dos relógios Ultra. Possui trava de pulseira real, parafusos traseiros reais, bússola dinâmica e bateria de longa duração com carregamento sem fio.</p>
+    `
+  },
+  {
+    id: "218622614",
+    slug: "smartwatch-serie-9-45mm-tela-infinita-amoled-nfc-iwo-16",
+    name: "Smartwatch Série 9 45mm Tela Infinita AMOLED NFC e Carregamento por Indução IWO 16",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "IWO",
+    price: 249.90,
+    comparePrice: 299.90,
+    discountPercentage: 16,
+    freeShipping: true,
+    isNew: true,
+    isFeatured: true,
+    isSale: false,
+    rating: 4.9,
+    reviewsCount: 26,
+    weight: "0.29 kg",
+    stock: 15,
+    colors: [
+      { name: "Preto", hex: "#000000", inStock: true },
+      { name: "Prata", hex: "#d1d5db", inStock: true },
+      { name: "Rosa Gold", hex: "#f472b6", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Smartwatch Série 9 45mm AMOLED</strong></p>
+      <p>Design sofisticado ultra fino com ilha de notificações dinâmica, atalhos rápidos e monitor de frequência cardíaca de alta precisão.</p>
+    `
+  },
+  {
+    id: "218622615",
+    slug: "smartwatch-feminino-zl02d-display-curvo-hd-notificacoes",
+    name: "Smartwatch Feminino ZL02D Display Curvo HD com Monitoramento de Ciclo e Notificações",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "Kapbom",
+    price: 139.90,
+    comparePrice: 179.90,
+    discountPercentage: 22,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 4.8,
+    reviewsCount: 18,
+    weight: "0.21 kg",
+    stock: 20,
+    colors: [
+      { name: "Rosa Gold", hex: "#f472b6", inStock: true },
+      { name: "Dourado", hex: "#eab308", inStock: true },
+      { name: "Preto", hex: "#000000", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Smartwatch Feminino ZL02D Elegance</strong></p>
+      <p>Pulseiras em silicone aveludado e caixa de metal polido. Perfeito para o dia a dia, trabalho e treinos esportivos.</p>
+    `
+  },
+  {
+    id: "218622616",
+    slug: "smartband-relogio-inteligente-m8-fitness-tracker-batimentos",
+    name: "Smartband Relógio Inteligente M8 Fitness Tracker com Frequência Cardíaca e Pressão",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "Kapbom",
+    price: 45.00,
+    comparePrice: 65.00,
+    discountPercentage: 30,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 4.7,
+    reviewsCount: 35,
+    weight: "0.08 kg",
+    stock: 50,
+    colors: [
+      { name: "Preto", hex: "#000000", inStock: true },
+      { name: "Azul", hex: "#1e3a8a", inStock: true },
+      { name: "Vermelho", hex: "#dc2626", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Smartband M8 Pulseira Inteligente Fitness</strong></p>
+      <p>Leve, compacta e resistente a respingos. Conte seus passos diários, calorias gastas e monitore seu sono com conexão direta ao seu smartphone.</p>
+    `
+  },
+  {
+    id: "218622617",
+    slug: "kit-3-pulseiras-oceano-silicone-e-couro-para-smartwatch-44-45-49mm",
+    name: "Kit 3 Pulseiras Oceano Silicone e Couro Premium para Smartwatch 42/44/45/49mm",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "Kapbom",
+    price: 49.90,
+    comparePrice: 79.90,
+    discountPercentage: 37,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 5,
+    reviewsCount: 29,
+    weight: "0.07 kg",
+    stock: 40,
+    colors: [
+      { name: "Kit Sortido", hex: "#ea580c", inStock: true },
+      { name: "Kit All Black", hex: "#000000", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1617043786394-f977fa12eddf?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Kit com 3 Pulseiras Premium para Smartwatch</strong></p>
+      <p>Fecho seguro em aço inoxidável e encaixe perfeito para relógios de 42mm, 44mm, 45mm e 49mm Ultra.</p>
+    `
+  },
+  {
+    id: "218622618",
+    slug: "carregador-magnetico-por-inducao-sem-fio-usb-para-smartwatch",
+    name: "Cabo Carregador Magnético por Indução Sem Fio USB para Relógio Smartwatch",
+    category: "smartwatches",
+    categoryName: "Smartwatches",
+    brand: "Kapbom",
+    price: 29.90,
+    comparePrice: 45.00,
+    discountPercentage: 33,
+    freeShipping: true,
+    isNew: false,
+    isFeatured: false,
+    isSale: true,
+    rating: 4.9,
+    reviewsCount: 22,
+    weight: "0.04 kg",
+    stock: 60,
+    colors: [
+      { name: "Branco", hex: "#ffffff", inStock: true }
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1000&q=80"
+    ],
+    description: `
+      <p><strong>Carregador Magnético Wireless por Indução para Smartwatches</strong></p>
+      <p>Encaixe magnético forte e recarga segura com proteção contra sobretensão e aquecimento.</p>
+    `
   }
 ];
