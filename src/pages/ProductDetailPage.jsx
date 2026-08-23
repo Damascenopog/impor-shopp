@@ -62,16 +62,57 @@ export const ProductDetailPage = () => {
     }, 400);
   };
 
-  const handleShare = (network) => {
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const handleShare = async (network) => {
     const url = window.location.href;
-    const text = `Confira ${product.name} na Imporshopp!`;
-    const shareUrls = {
-      whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
-    };
-    if (shareUrls[network]) {
-      window.open(shareUrls[network], '_blank');
+    const shareTitle = `${product.name} | Imporshopp`;
+    const shareMessage = `Confira esse produto na Imporshopp:\n\n*${product.name}*\nPor apenas *${formatPrice(product.price)}*\n\nVeja mais detalhes aqui: ${url}`;
+
+    if (network === 'whatsapp') {
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    if (network === 'facebook') {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+      window.open(facebookUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // Native Web Share or Copy Link
+    if (network === 'native' || network === 'copy') {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: shareTitle,
+            text: `Confira ${product.name} na Imporshopp por ${formatPrice(product.price)}!`,
+            url: url
+          });
+          return;
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error('Erro ao compartilhar:', err);
+          }
+        }
+      }
+
+      // Fallback: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareMessage);
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 3000);
+      } catch (err) {
+        const textarea = document.createElement('textarea');
+        textarea.value = shareMessage;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 3000);
+      }
     }
   };
 
@@ -228,22 +269,42 @@ export const ProductDetailPage = () => {
             </div>
 
             {/* Social Share Buttons */}
-            <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Compartilhar:</span>
+            <div className="mt-5 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                Compartilhar:
+              </span>
               <div className="flex items-center gap-2">
+                {/* WhatsApp Share Button */}
                 <button
                   onClick={() => handleShare('whatsapp')}
-                  className="w-8 h-8 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#25D366] hover:bg-[#20bd5a] text-white transition-all text-xs font-bold shadow-xs cursor-pointer"
                   title="Compartilhar no WhatsApp"
                 >
-                  <WhatsAppIcon className="w-4 h-4 fill-white" />
+                  <WhatsAppIcon className="w-3.5 h-3.5 fill-white" />
+                  <span>WhatsApp</span>
                 </button>
+
+                {/* Normal Share / Copy Link Button */}
                 <button
-                  onClick={() => handleShare('facebook')}
-                  className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
-                  title="Compartilhar no Facebook"
+                  onClick={() => handleShare('native')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border transition-all text-xs font-bold shadow-xs cursor-pointer ${
+                    copiedLink
+                      ? 'bg-green-50 border-green-300 text-green-700'
+                      : 'bg-white border-gray-300 hover:border-black text-gray-700 hover:text-black'
+                  }`}
+                  title="Compartilhar ou Copiar Link"
                 >
-                  <Share2 className="w-4 h-4" />
+                  {copiedLink ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-green-600 stroke-[3]" />
+                      <span>Link Copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="w-3.5 h-3.5 text-gray-600" />
+                      <span>Compartilhar</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
