@@ -1,10 +1,22 @@
-import React from 'react';
-import { X, Check, ShoppingBag } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { X, Check, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { formatPrice } from '../../utils/formatters';
 
 export const AddedToCartToast = () => {
+  const navigate = useNavigate();
   const { showToast, lastAddedItem, closeToast, openCart, getTotalItemsCount, getTotal } = useCartStore();
+
+  // Auto-dismiss after 5 seconds
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        closeToast();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast, closeToast]);
 
   if (!showToast || !lastAddedItem) return null;
 
@@ -12,33 +24,39 @@ export const AddedToCartToast = () => {
   const total = getTotal();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="w-full max-w-lg bg-white rounded-[4px] shadow-2xl overflow-hidden border border-gray-100 animate-in zoom-in-95 duration-200">
+    <div className="fixed top-16 sm:top-[72px] right-2 sm:right-6 lg:right-10 z-50 max-w-[360px] sm:max-w-[400px] w-full animate-in slide-in-from-top-2 fade-in duration-200">
+      
+      {/* Pop-up Container anchored below the cart basket */}
+      <div className="bg-white rounded-[4px] shadow-2xl border border-gray-200 overflow-hidden relative">
         
-        {/* Modal Header */}
-        <div className="bg-[#000000] text-white px-4 py-3 flex items-center justify-between">
+        {/* Little decorative arrow pointing up to the cart icon */}
+        <div className="absolute -top-1.5 right-6 w-3 h-3 bg-white border-t border-l border-gray-200 transform rotate-45 z-10" />
+
+        {/* Pop-up Header */}
+        <div className="bg-neutral-900 text-white px-3.5 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center">
-              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            <div className="w-4 h-4 rounded-full bg-[#3fef09] text-black flex items-center justify-center font-bold">
+              <Check className="w-3 h-3 stroke-[3]" />
             </div>
-            <span className="font-bold text-xs uppercase tracking-wider">
-              Adicionado ao carrinho!
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-100">
+              Adicionado ao Carrinho!
             </span>
           </div>
           <button
             onClick={closeToast}
-            className="text-gray-400 hover:text-white transition-colors p-1"
-            aria-label="Fechar notificação"
+            className="text-gray-400 hover:text-white p-1 transition-colors cursor-pointer"
+            aria-label="Fechar aviso"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="p-4 sm:p-5">
-          <div className="flex gap-4 items-center">
-            {/* Product Image */}
-            <div className="w-20 h-20 bg-white border border-gray-100 rounded-[4px] p-1 flex items-center justify-center shrink-0">
+        {/* Pop-up Body: Product Summary */}
+        <div className="p-3.5 sm:p-4 bg-white">
+          <div className="flex items-center gap-3">
+            
+            {/* Thumbnail */}
+            <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-[4px] p-1 flex items-center justify-center shrink-0">
               <img
                 src={lastAddedItem.product.images[0]}
                 alt={lastAddedItem.product.name}
@@ -46,56 +64,60 @@ export const AddedToCartToast = () => {
               />
             </div>
 
-            {/* Product Info */}
+            {/* Product Details */}
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs sm:text-sm font-semibold text-gray-900 line-clamp-2">
+              <h4 className="text-xs font-bold text-gray-900 line-clamp-1 leading-snug">
                 {lastAddedItem.product.name}
               </h4>
               {lastAddedItem.colorName && lastAddedItem.colorName !== 'Padrão' && (
-                <p className="text-[11px] text-gray-500 mt-0.5">
-                  ({lastAddedItem.colorName})
+                <p className="text-[11px] text-gray-500">
+                  Cor: <strong className="text-gray-700">{lastAddedItem.colorName}</strong>
                 </p>
               )}
-              <div className="flex items-center gap-2 mt-1.5">
-                <span className="text-xs font-bold text-gray-700">
-                  {lastAddedItem.quantity} x {formatPrice(lastAddedItem.product.price)}
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs font-extrabold text-[#f20606]">
+                  {lastAddedItem.quantity}x {formatPrice(lastAddedItem.product.price)}
                 </span>
                 {lastAddedItem.product.discountPercentage > 0 && (
-                  <span className="bg-[#C8FF55] text-gray-900 font-bold text-[10px] px-1.5 py-0.5 rounded">
-                    -{lastAddedItem.product.discountPercentage}% OFF
+                  <span className="bg-red-100 text-[#f20606] font-bold text-[9px] px-1 py-0.2 rounded">
+                    -{lastAddedItem.product.discountPercentage}%
                   </span>
                 )}
               </div>
             </div>
+
           </div>
 
-          {/* Subtotal preview */}
-          <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+          {/* Subtotal Preview */}
+          <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs">
             <span className="text-gray-600 font-medium">
-              Total ({totalItems} {totalItems === 1 ? 'produto' : 'produtos'}):
+              Subtotal ({totalItems} {totalItems === 1 ? 'item' : 'itens'}):
             </span>
-            <span className="text-sm font-extrabold text-[#f20606]">
+            <span className="font-extrabold text-sm text-gray-900">
               {formatPrice(total)}
             </span>
           </div>
 
-          {/* Actions */}
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <button
-              onClick={closeToast}
-              className="w-full py-2.5 px-3 rounded-[4px] border border-gray-300 hover:border-black text-xs font-semibold text-gray-700 hover:text-black transition-colors text-center"
-            >
-              Continuar comprando
-            </button>
+          {/* Action Buttons */}
+          <div className="mt-3 grid grid-cols-2 gap-2">
             <button
               onClick={() => {
                 closeToast();
                 openCart();
               }}
-              className="w-full py-2.5 px-3 rounded-[4px] bg-[#f20606] hover:bg-[#d40505] text-xs font-bold text-white uppercase tracking-wider transition-colors text-center flex items-center justify-center gap-1.5 shadow-sm"
+              className="w-full py-2 px-2.5 rounded-[4px] border border-gray-300 hover:border-black text-[11px] font-bold uppercase tracking-wider text-gray-800 hover:bg-gray-50 transition-colors text-center cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4" />
-              <span>Ver Carrinho</span>
+              Ver Carrinho
+            </button>
+            <button
+              onClick={() => {
+                closeToast();
+                navigate('/checkout');
+              }}
+              className="btn-primary w-full py-2 px-2.5 text-[11px] uppercase tracking-wider text-center flex items-center justify-center gap-1 shadow-sm cursor-pointer"
+            >
+              <span>Finalizar</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
