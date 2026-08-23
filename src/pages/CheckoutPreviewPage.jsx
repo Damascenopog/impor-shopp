@@ -9,25 +9,27 @@ import { formatPrice } from '../utils/formatters';
 export const CheckoutPreviewPage = () => {
   const navigate = useNavigate();
   const { items, getSubtotal, getDiscountAmount, getTotal, shippingCost, shippingOption, clearCart } = useCartStore();
-  const { user } = useAuthStore();
+  const { user, addOrder } = useAuthStore();
 
   const subtotal = getSubtotal();
   const discount = getDiscountAmount();
   const total = getTotal();
 
+  const defaultAddress = user?.addresses?.find((a) => a.isDefault) || user?.addresses?.[0];
+
   const [step, setStep] = useState(1); // 1: Identificação, 2: Entrega, 3: Pagamento, 4: Sucesso
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    cpf: '',
+    cpf: user?.cpf || '',
     phone: user?.phone || '',
-    cep: '20040-002',
-    street: 'Avenida Rio Branco',
-    number: '156',
-    complement: 'Sala 102',
-    neighborhood: 'Centro',
-    city: 'Rio de Janeiro',
-    state: 'RJ',
+    cep: defaultAddress?.cep || '20040-002',
+    street: defaultAddress?.street || 'Avenida Rio Branco',
+    number: defaultAddress?.number || '156',
+    complement: defaultAddress?.complement || 'Sala 102',
+    neighborhood: defaultAddress?.neighborhood || 'Centro',
+    city: defaultAddress?.city || 'Rio de Janeiro',
+    state: defaultAddress?.state || 'RJ',
     paymentMethod: 'pix'
   });
 
@@ -49,6 +51,26 @@ export const CheckoutPreviewPage = () => {
     e.preventDefault();
     const generatedOrder = `IMP-${Math.floor(100000 + Math.random() * 900000)}`;
     setOrderNumber(generatedOrder);
+
+    // Save order into user account history
+    if (addOrder) {
+      addOrder({
+        id: generatedOrder,
+        date: new Date().toLocaleDateString('pt-BR'),
+        total: total,
+        status: 'Pago',
+        paymentMethod: formData.paymentMethod.toUpperCase(),
+        trackingCode: `BR${Math.floor(100000000 + Math.random() * 900000000)}AA`,
+        items: items.map((i) => ({
+          name: i.product.name,
+          qty: i.quantity,
+          price: i.product.price,
+          color: i.colorName,
+          image: i.product.images[0]
+        }))
+      });
+    }
+
     setStep(4);
     clearCart();
     

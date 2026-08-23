@@ -22,6 +22,7 @@ import { HowToBuyPage } from './pages/HowToBuyPage';
 import { ReturnsPage } from './pages/ReturnsPage';
 import { AboutPage } from './pages/AboutPage';
 import { CheckoutPreviewPage } from './pages/CheckoutPreviewPage';
+import { AccountPage } from './pages/AccountPage';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -102,6 +103,9 @@ export const AppContent = () => {
           <Route path="/como-comprar" element={<HowToBuyPage />} />
           <Route path="/trocas-e-devolucoes" element={<ReturnsPage />} />
           <Route path="/quem-somos" element={<AboutPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/orders" element={<AccountPage defaultTab="orders" />} />
+          <Route path="/account/addresses" element={<AccountPage defaultTab="addresses" />} />
           <Route path="/checkout" element={<CheckoutPreviewPage />} />
 
           {/* Dynamic category route for /original-apple, /caixas-de-som, etc. */}

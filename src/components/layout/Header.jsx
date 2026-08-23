@@ -182,12 +182,27 @@ export const Header = ({ onOpenMobileMenu }) => {
                     <p className="text-[10px] text-gray-500 truncate">{user?.email}</p>
                   </div>
                   <Link
-                    to="/account/orders"
+                    to="/account"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="block px-4 py-2 text-xs font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+                  >
+                    Minha Conta
+                  </Link>
+                  <Link
+                    to="/account?tab=addresses"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Meus Endereços
+                  </Link>
+                  <Link
+                    to="/account?tab=orders"
                     onClick={() => setIsAccountMenuOpen(false)}
                     className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     Meus Pedidos
                   </Link>
+                  <div className="border-t border-gray-100 my-1"></div>
                   <button
                     onClick={() => {
                       logout();

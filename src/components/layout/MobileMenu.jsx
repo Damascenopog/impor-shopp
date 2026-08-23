@@ -41,25 +41,51 @@ export const MobileMenu = ({ isOpen, onClose }) => {
         {/* User Greeting / Auth Buttons */}
         <div className="p-4 bg-[#1a1a1a] border-b border-neutral-800">
           {isAuthenticated ? (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#f20606] text-white flex items-center justify-center font-bold text-sm">
-                  {user?.name?.charAt(0) || 'U'}
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#f20606] text-white flex items-center justify-center font-bold text-sm">
+                    {user?.name?.charAt(0) || 'U'}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">Olá, {user?.name}</p>
+                    <p className="text-xs text-gray-400">{user?.email}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-white">Olá, {user?.name}</p>
-                  <p className="text-xs text-gray-400">{user?.email}</p>
-                </div>
+                <button
+                  onClick={() => {
+                    logout();
+                    onClose();
+                  }}
+                  className="text-xs text-red-500 font-semibold hover:underline"
+                >
+                  Sair
+                </button>
               </div>
-              <button
-                onClick={() => {
-                  logout();
-                  onClose();
-                }}
-                className="text-xs text-red-500 font-semibold hover:underline"
-              >
-                Sair
-              </button>
+
+              <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-neutral-800 text-center">
+                <Link
+                  to="/account"
+                  onClick={onClose}
+                  className="py-1.5 px-1 bg-neutral-900 hover:bg-neutral-800 rounded text-[11px] font-semibold text-gray-300 hover:text-white"
+                >
+                  Meus Dados
+                </Link>
+                <Link
+                  to="/account?tab=addresses"
+                  onClick={onClose}
+                  className="py-1.5 px-1 bg-neutral-900 hover:bg-neutral-800 rounded text-[11px] font-semibold text-gray-300 hover:text-white"
+                >
+                  Endereços
+                </Link>
+                <Link
+                  to="/account?tab=orders"
+                  onClick={onClose}
+                  className="py-1.5 px-1 bg-neutral-900 hover:bg-neutral-800 rounded text-[11px] font-semibold text-gray-300 hover:text-white"
+                >
+                  Pedidos
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="flex items-center gap-3">
