@@ -76,18 +76,18 @@ export const HeroSlider = () => {
       {/* Navigation Arrows */}
       <button
         onClick={handlePrev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+        className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 shadow-md cursor-pointer z-20"
         aria-label="Banner Anterior"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       <button
         onClick={handleNext}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 shadow-md cursor-pointer z-20"
         aria-label="Próximo Banner"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {/* Pagination Indicators */}
